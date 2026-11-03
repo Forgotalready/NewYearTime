@@ -7,12 +7,92 @@
     <title>New Year Time</title>
 </head>
 <body>
+    <!-- Гирлянда с огоньками -->
+    <div class="garland">
+        <div class="garland-light"></div>
+        <div class="garland-light"></div>
+        <div class="garland-light"></div>
+        <div class="garland-light"></div>
+        <div class="garland-light"></div>
+        <div class="garland-light"></div>
+        <div class="garland-light"></div>
+        <div class="garland-light"></div>
+        <div class="garland-light"></div>
+        <div class="garland-light"></div>
+        <div class="garland-light"></div>
+        <div class="garland-light"></div>
+        <div class="garland-light"></div>
+        <div class="garland-light"></div>
+        <div class="garland-light"></div>
+        <div class="garland-light"></div>
+        <div class="garland-light"></div>
+        <div class="garland-light"></div>
+        <div class="garland-light"></div>
+        <div class="garland-light"></div>
+    </div>
+
+    <!-- Декоративные ёлочные ветки по углам -->
+    <div class="corner-decoration top-left"></div>
+    <div class="corner-decoration top-right"></div>
+
     <header>
         <div>Узнай точное время в секундах до Нового года</div>
     </header>
     <main>
         <div class="time-shower"></div>
     </main>
+
+    <div class="scene">
+        <svg class="tree" viewBox="0 0 200 300" xmlns="http://www.w3.org/2000/svg">
+            <rect x="90" y="250" width="20" height="30" fill="#5d3a1a" />
+            <polygon points="100,40 50,130 150,130" fill="#1e5631" />
+            <polygon points="100,90 40,180 160,180" fill="#2d7a3e" />
+            <polygon points="100,140 30,240 170,240" fill="#3a9150" />
+            <ellipse cx="70" cy="125" rx="15" ry="4" fill="#fff" opacity="0.8" />
+            <ellipse cx="130" cy="125" rx="15" ry="4" fill="#fff" opacity="0.8" />
+            <ellipse cx="60" cy="175" rx="18" ry="4" fill="#fff" opacity="0.8" />
+            <ellipse cx="140" cy="175" rx="18" ry="4" fill="#fff" opacity="0.8" />
+            <ellipse cx="50" cy="235" rx="20" ry="4" fill="#fff" opacity="0.8" />
+            <ellipse cx="150" cy="235" rx="20" ry="4" fill="#fff" opacity="0.8" />
+            <circle cx="85" cy="110" r="5" fill="#ff4d4d" />
+            <circle cx="115" cy="160" r="5" fill="#ffd700" />
+            <circle cx="75" cy="200" r="5" fill="#74c0fc" />
+            <circle cx="130" cy="220" r="5" fill="#ff4d4d" />
+            <circle cx="100" cy="190" r="5" fill="#ffd700" />
+            <polygon class="tree-star" points="100,20 104,32 117,32 107,40 111,52 100,44 89,52 93,40 83,32 96,32" fill="#ffd700" />
+        </svg>
+
+        <svg class="gift" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+            <rect x="10" y="45" width="100" height="65" fill="#c92a2a" />
+            <rect x="10" y="45" width="100" height="65" fill="url(#giftGradient)" />
+            <rect x="5" y="35" width="110" height="18" fill="#e03131" />
+            <rect x="52" y="35" width="16" height="75" fill="#ffd43b" />
+            <rect x="10" y="80" width="100" height="12" fill="#ffd43b" />
+            <ellipse cx="45" cy="30" rx="15" ry="10" fill="#ffd43b" />
+            <ellipse cx="75" cy="30" rx="15" ry="10" fill="#ffd43b" />
+            <circle cx="60" cy="30" r="6" fill="#f59f00" />
+            <defs>
+                <linearGradient id="giftGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="rgba(255,255,255,0.2)" />
+                    <stop offset="50%" stop-color="rgba(255,255,255,0)" />
+                    <stop offset="100%" stop-color="rgba(0,0,0,0.2)" />
+                </linearGradient>
+            </defs>
+        </svg>
+
+        <div class="snowdrifts">
+            <svg class="snowdrift back" viewBox="0 0 1440 200" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M0,100 C200,40 400,160 720,80 C1040,0 1240,140 1440,60 L1440,200 L0,200 Z" fill="rgba(255,255,255,0.4)" />
+            </svg>
+            <svg class="snowdrift middle" viewBox="0 0 1440 200" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M0,120 C240,60 480,180 720,100 C960,20 1200,160 1440,80 L1440,200 L0,200 Z" fill="rgba(255,255,255,0.7)" />
+            </svg>
+            <svg class="snowdrift front" viewBox="0 0 1440 200" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M0,140 C180,80 360,180 720,120 C1080,60 1260,180 1440,100 L1440,200 L0,200 Z" fill="#ffffff" />
+            </svg>
+        </div>
+    </div>
+
     <script src="script.js"></script>
 </body>
 </html>

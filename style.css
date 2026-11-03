@@ -1,370 +1,390 @@
-/* ============================================================
-   NEW YEAR COUNTDOWN — festive style.css
-   ============================================================ */
+/* ===== Подключаем шрифты ===== */
+@import url('https://fonts.googleapis.com/css2?family=Marck+Script&family=Playfair+Display:wght@600;700&family=Montserrat:wght@300;500&display=swap');
 
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
+/* ===== Сброс и базовые стили ===== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-:root {
-  /* ночное небо */
-  --night-1: #04070f;
-  --night-2: #0b1635;
-  --night-3: #1a0f2e;
-
-  /* новогодняя палитра */
-  --gold:        #ffd15c;
-  --gold-bright: #ffe9a8;
-  --gold-warm:   #ffb84d;
-  --red:         #ff4d5e;
-  --green:       #2e7d32;
-  --green-dark:  #0d3d1e;
-  --snow:        #f4f9ff;
-
-  /* текст */
-  --text:  #eef5ff;
-  --muted: #9fb3d8;
-
-  /* шрифты */
-  --font: "Segoe UI", "Inter", system-ui, -apple-system, sans-serif;
-  --mono: "SF Mono", "JetBrains Mono", "Fira Code", Consolas, monospace;
+html, body {
+    height: 100%;
+    overflow: hidden;
 }
-
-html { height: 100%; }
 
 body {
-  margin: 0;
-  min-height: 100vh;
-  min-height: 100dvh;
-
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: clamp(2rem, 7vh, 4rem);
-
-  padding: clamp(5rem, 12vh, 8rem) 1.25rem clamp(2rem, 5vh, 3rem);
-  overflow-x: hidden;
-
-  font-family: var(--font);
-  color: var(--text);
-  text-align: center;
-
-  background:
-    /* снежный сугроб у нижнего края */
-    radial-gradient(ellipse 130% 30% at 50% 104%,
-      #eaf3ff 0%, #d9e9ff 35%, rgba(217, 233, 255, 0) 70%),
-    /* цветные зарева */
-    radial-gradient(circle at 50% -10%, rgba(80, 130, 255, .35), transparent 55%),
-    radial-gradient(circle at 8% 100%, rgba(220, 60, 80, .18), transparent 45%),
-    radial-gradient(circle at 92% 100%, rgba(30, 140, 80, .18), transparent 45%),
-    /* ночное небо */
-    linear-gradient(180deg, var(--night-1) 0%, var(--night-2) 40%, var(--night-3) 100%);
-  background-attachment: fixed;
+    font-family: 'Montserrat', sans-serif;
+    color: #fff;
+    /* Тёплый зимний вечер: тёмно-зелёный → бордовый */
+    background: linear-gradient(180deg, 
+        #1a3a2e 0%, 
+        #2d4a3e 30%, 
+        #4a2c3a 70%, 
+        #2d1a2e 100%);
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    position: relative;
 }
 
-/* ---------- звёзды ---------- */
+/* ===== Гирлянда с огоньками сверху ===== */
 body::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
-
-  background-image:
-    radial-gradient(1.6px 1.6px at 30px 40px,   #fff, transparent),
-    radial-gradient(1.2px 1.2px at 150px 90px,  #cfe6ff, transparent),
-    radial-gradient(1.8px 1.8px at 240px 170px, #fff, transparent),
-    radial-gradient(1px   1px   at 90px 220px,  #a9c8ff, transparent),
-    radial-gradient(1.4px 1.4px at 200px 260px, #fff, transparent),
-    radial-gradient(1.1px 1.1px at 60px 300px,  #ffe9b0, transparent);
-  background-size: 320px 320px;
-  animation: twinkle 6s ease-in-out infinite alternate;
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 60px;
+    /* Провод гирлянды */
+    background: 
+        linear-gradient(90deg, 
+            transparent 0%, 
+            #2a2a2a 5%, 
+            #2a2a2a 95%, 
+            transparent 100%);
+    background-size: 100% 3px;
+    background-position: 0 25px;
+    background-repeat: no-repeat;
+    z-index: 10;
 }
 
-@keyframes twinkle {
-  0%   { opacity: .4; }
-  100% { opacity: 1;  }
+/* Огоньки гирлянды */
+.garland {
+    position: fixed;
+    top: 25px;
+    left: 0;
+    right: 0;
+    height: 35px;
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-start;
+    z-index: 11;
+    pointer-events: none;
 }
 
-/* ---------- падающие снежинки (SVG в data-uri) ---------- */
+.garland-light {
+    width: 12px;
+    height: 18px;
+    border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+    position: relative;
+    animation: glow 2s ease-in-out infinite;
+}
+
+/* Разные цвета огоньков */
+.garland-light:nth-child(4n+1) {
+    background: radial-gradient(circle at 30% 30%, #ff6b6b, #c92a2a);
+    box-shadow: 0 0 10px #ff6b6b, 0 0 20px #ff6b6b;
+    animation-delay: 0s;
+}
+
+.garland-light:nth-child(4n+2) {
+    background: radial-gradient(circle at 30% 30%, #ffd43b, #f59f00);
+    box-shadow: 0 0 10px #ffd43b, 0 0 20px #ffd43b;
+    animation-delay: 0.5s;
+}
+
+.garland-light:nth-child(4n+3) {
+    background: radial-gradient(circle at 30% 30%, #69db7c, #2f9e44);
+    box-shadow: 0 0 10px #69db7c, 0 0 20px #69db7c;
+    animation-delay: 1s;
+}
+
+.garland-light:nth-child(4n) {
+    background: radial-gradient(circle at 30% 30%, #74c0fc, #1c7ed6);
+    box-shadow: 0 0 10px #74c0fc, 0 0 20px #74c0fc;
+    animation-delay: 1.5s;
+}
+
+@keyframes glow {
+    0%, 100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+    50% {
+        opacity: 0.4;
+        transform: scale(0.9);
+    }
+}
+
+/* ===== Уютный снег ===== */
 body::after {
-  content: "";
-  position: fixed;
-  inset: 0;
-  z-index: 1;
-  pointer-events: none;
-
-  background-image:
-    /* большая снежинка с веточками */
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Cg transform='translate(50 50)' stroke='white' stroke-width='1.6' stroke-linecap='round' fill='none'%3E%3Cpath d='M0 -14v28M-14 0h28M-10 -10l20 20M10 -10L-10 10M-4 -14l-3 4M4 -14l3 4M-4 14l-3 -4M4 14l3 -4M-14 -4l4 -3M-14 4l4 3M14 -4l-4 -3M14 4l-4 3'/%3E%3C/g%3E%3C/svg%3E"),
-    /* средняя */
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Cg transform='translate(50 50)' stroke='white' stroke-width='1.6' stroke-linecap='round' fill='none'%3E%3Cpath d='M0 -14v28M-14 0h28M-10 -10l20 20M10 -10L-10 10'/%3E%3C/g%3E%3C/svg%3E"),
-    /* маленькая */
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Cg transform='translate(50 50)' stroke='white' stroke-width='1.6' stroke-linecap='round' fill='none'%3E%3Cpath d='M0 -10v20M-10 0h20M-7 -7l14 14M7 -7L-7 7'/%3E%3C/g%3E%3C/svg%3E");
-  background-size: 160px 160px, 120px 120px, 80px 80px;
-  background-position: 0 0, 40px 60px, 80px 20px;
-  background-repeat: repeat;
-  animation: snowfall 22s linear infinite;
-  opacity: .85;
+    content: '';
+    position: fixed;
+    inset: 0;
+    /* Крупные мягкие снежинки */
+    background-image: 
+        radial-gradient(3px 3px at 50px 80px, rgba(255,255,255,0.9), transparent),
+        radial-gradient(4px 4px at 150px 120px, rgba(255,255,255,0.8), transparent),
+        radial-gradient(3px 3px at 250px 60px, rgba(255,255,255,0.9), transparent),
+        radial-gradient(5px 5px at 350px 150px, rgba(255,255,255,0.7), transparent),
+        radial-gradient(3px 3px at 450px 90px, rgba(255,255,255,0.9), transparent),
+        radial-gradient(4px 4px at 550px 130px, rgba(255,255,255,0.8), transparent),
+        radial-gradient(3px 3px at 650px 70px, rgba(255,255,255,0.9), transparent),
+        radial-gradient(4px 4px at 750px 110px, rgba(255,255,255,0.8), transparent);
+    background-size: 800px 200px;
+    background-repeat: repeat;
+    animation: snowfall 15s linear infinite;
+    pointer-events: none;
+    z-index: 1;
 }
 
 @keyframes snowfall {
-  from {
-    background-position: 0 0, 40px 60px, 80px 20px;
-  }
-  to {
-    background-position: 0 160px, 40px 180px, 80px 100px;
-  }
+    from { background-position: 0 0; }
+    to   { background-position: 0 200px; }
 }
 
-/* ============================================================
-   ШАПКА
-   ============================================================ */
+/* ===== Декоративные ёлочные ветки по углам ===== */
+.corner-decoration {
+    position: fixed;
+    width: 150px;
+    height: 150px;
+    z-index: 2;
+    opacity: 0.6;
+    pointer-events: none;
+}
 
+.corner-decoration.top-left {
+    top: 70px;
+    left: 20px;
+    background: 
+        radial-gradient(ellipse at 0% 0%, rgba(47, 158, 68, 0.4) 0%, transparent 50%),
+        radial-gradient(ellipse at 20% 20%, rgba(47, 158, 68, 0.3) 0%, transparent 40%);
+}
+
+.corner-decoration.top-right {
+    top: 70px;
+    right: 20px;
+    background: 
+        radial-gradient(ellipse at 100% 0%, rgba(47, 158, 68, 0.4) 0%, transparent 50%),
+        radial-gradient(ellipse at 80% 20%, rgba(47, 158, 68, 0.3) 0%, transparent 40%);
+}
+
+/* ===== Шапка ===== */
 header {
-  position: relative;
-  z-index: 2;
-  max-width: 28ch;
+    position: relative;
+    z-index: 3;
+    padding: 80px 20px 20px;
+    text-align: center;
+    animation: fadeInDown 1.2s ease-out;
 }
 
 header > div {
-  position: relative;
-  font-size: clamp(1.05rem, 2.6vw, 1.6rem);
-  font-weight: 600;
-  line-height: 1.55;
-  letter-spacing: .015em;
-
-  /* золотой градиент текста */
-  background: linear-gradient(180deg, #fff 0%, #ffe6a0 55%, #ffb84d 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-
-  filter: drop-shadow(0 0 20px rgba(255, 180, 80, .55));
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.5rem, 3.5vw, 2.5rem);
+    font-weight: 700;
+    letter-spacing: 3px;
+    /* Тёплый золотой цвет */
+    color: #ffd700;
+    text-shadow: 
+        0 0 10px rgba(255, 215, 0, 0.5),
+        0 2px 4px rgba(0, 0, 0, 0.5);
 }
 
-header > div::after {
-  content: "";
-  display: block;
-  width: min(60%, 220px);
-  height: 2px;
-  margin: 1.1rem auto 0;
-  border-radius: 2px;
-  background: linear-gradient(90deg, transparent, var(--gold), transparent);
-  box-shadow: 0 0 14px rgba(255, 215, 106, .8);
+@keyframes fadeInDown {
+    from { opacity: 0; transform: translateY(-30px); }
+    to   { opacity: 1; transform: translateY(0); }
 }
 
-/* ---------- ГИРЛЯНДА С ОГОНЬКАМИ ---------- */
-header::before {
-  content: "";
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 90px;
-  z-index: 20;
-  pointer-events: none;
-
-  /* огоньки "провисают" к центру — как настоящая гирлянда */
-  background-image:
-    radial-gradient(circle 6px at 5%  55%, #ff4d5e, transparent),
-    radial-gradient(circle 6px at 45% 78%, #ff4d5e, transparent),
-    radial-gradient(circle 6px at 85% 55%, #ff4d5e, transparent),
-    radial-gradient(circle 6px at 15% 60%, #ffb300, transparent),
-    radial-gradient(circle 6px at 55% 78%, #ffb300, transparent),
-    radial-gradient(circle 6px at 95% 60%, #ffb300, transparent),
-    radial-gradient(circle 6px at 25% 68%, #34d97b, transparent),
-    radial-gradient(circle 6px at 65% 72%, #34d97b, transparent),
-    radial-gradient(circle 6px at 35% 76%, #3aa7ff, transparent),
-    radial-gradient(circle 6px at 75% 65%, #3aa7ff, transparent);
-
-  filter: drop-shadow(0 0 8px rgba(255, 200, 80, .55));
-  animation: garlandGlow 2.4s ease-in-out infinite alternate;
-}
-
-@keyframes garlandGlow {
-  0%   { filter: brightness(.7) drop-shadow(0 0 6px rgba(255, 200, 80, .4)); }
-  100% { filter: brightness(1.35) drop-shadow(0 0 16px rgba(255, 220, 120, 1)); }
-}
-
-/* ============================================================
-   СЦЕНА — ЁЛКА И ПОДАРОК
-   ============================================================ */
-
+/* ===== Основной блок с таймером ===== */
 main {
-  position: relative;
-  z-index: 2;
-  width: 100%;
-  max-width: 720px;
-  display: flex;
-  justify-content: center;
-
-  /* место внизу под ёлку и подарки */
-  padding-bottom: clamp(120px, 22vw, 200px);
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    z-index: 3;
+    padding: 20px;
 }
-
-/* ---------- ЁЛКА (чистый CSS через clip-path) ---------- */
-main::before {
-  content: "";
-  position: absolute;
-  bottom: 0;
-  left: clamp(0px, 1vw, 30px);
-  width:  clamp(80px, 16vw, 140px);
-  height: clamp(110px, 22vw, 190px);
-
-  background:
-    /* золотая макушка, светящаяся сверху */
-    radial-gradient(circle at 50% 6%,
-      rgba(255, 220, 100, .95) 0%,
-      rgba(255, 200, 80, .45) 25%,
-      transparent 48%),
-    /* зелёный корпус */
-    linear-gradient(180deg, var(--green) 0%, #1a5a2a 55%, var(--green-dark) 100%);
-
-  clip-path: polygon(
-    50% 0%,
-    60% 22%, 55% 22%,
-    70% 48%, 63% 48%,
-    82% 75%, 70% 75%,
-    90% 100%, 10% 100%,
-    30% 75%, 18% 75%,
-    37% 48%, 30% 48%,
-    45% 22%, 40% 22%
-  );
-  filter: drop-shadow(0 6px 22px rgba(20, 80, 40, .55));
-}
-
-/* ---------- ПОДАРОК ---------- */
-main::after {
-  content: "🎁";
-  position: absolute;
-  bottom: 0;
-  right: clamp(0px, 3vw, 40px);
-  font-size: clamp(50px, 10vw, 90px);
-  line-height: 1;
-  filter: drop-shadow(0 8px 16px rgba(0, 0, 0, .55));
-  animation: giftBob 3.2s ease-in-out infinite;
-}
-
-@keyframes giftBob {
-  0%, 100% { transform: translateY(0)    rotate(-3deg); }
-  50%      { transform: translateY(-6px) rotate(3deg);  }
-}
-
-/* ============================================================
-   ТАБЛО С ОСТАТКОМ ВРЕМЕНИ
-   ============================================================ */
 
 .time-shower {
-  position: relative;
-  isolation: isolate;
-  display: inline-block;
-
-  min-width: min(100%, 320px);
-  padding: clamp(1.25rem, 4vw, 2.5rem) clamp(1.5rem, 6vw, 3.5rem);
-
-  font-family: var(--mono);
-  font-size: clamp(1.6rem, 6.5vw, 3.6rem);
-  font-weight: 700;
-  font-variant-numeric: tabular-nums;
-  letter-spacing: .05em;
-  line-height: 1.25;
-
-  color: var(--gold-bright);
-  text-shadow:
-    0 0 8px  rgba(255, 220, 120, .9),
-    0 0 26px rgba(255, 170, 60, .6),
-    0 0 50px rgba(255, 100, 80, .3);
-
-  /* стекло с намёком на снежинки */
-  background:
-    radial-gradient(circle at 15% 20%, rgba(255, 255, 255, .55) 1px, transparent 2px),
-    radial-gradient(circle at 75% 70%, rgba(255, 255, 255, .45) 1px, transparent 2px),
-    radial-gradient(circle at 40% 85%, rgba(255, 255, 255, .55) 1px, transparent 2px),
-    radial-gradient(circle at 85% 25%, rgba(255, 255, 255, .45) 1px, transparent 2px),
-    radial-gradient(circle at 25% 55%, rgba(255, 255, 255, .35) 1px, transparent 2px),
-    linear-gradient(160deg, rgba(60, 30, 80, .55), rgba(20, 10, 40, .65));
-
-  border: 1.5px solid rgba(255, 200, 100, .55);
-  border-radius: clamp(16px, 3vw, 26px);
-
-  -webkit-backdrop-filter: blur(14px) saturate(150%);
-  backdrop-filter: blur(14px) saturate(150%);
-
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, .22),
-    inset 0 0 40px rgba(255, 180, 80, .08),
-    0 20px 60px rgba(0, 0, 0, .55),
-    0 0 40px rgba(255, 180, 80, .30),
-    0 0 90px rgba(255, 80, 100, .18);
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 300;
+    font-size: clamp(3rem, 12vw, 9rem);
+    letter-spacing: 6px;
+    color: #fff;
+    text-align: center;
+    /* Тёплое свечение, как от свечи */
+    text-shadow: 
+        0 0 10px rgba(255, 215, 0, 0.6),
+        0 0 20px rgba(255, 215, 0, 0.4),
+        0 0 30px rgba(255, 165, 0, 0.3),
+        2px 2px 4px rgba(0, 0, 0, 0.5);
+    animation: fadeInUp 1.5s ease-out;
+    word-break: break-word;
 }
 
-/* пульсирующее золотое свечение */
-.time-shower::before {
-  content: "";
-  position: absolute;
-  inset: -35%;
-  z-index: -1;
-  pointer-events: none;
-
-  background: radial-gradient(closest-side, rgba(255, 190, 80, .45), transparent 70%);
-  filter: blur(30px);
-  animation: glowPulse 3.6s ease-in-out infinite;
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to   { opacity: 1; transform: translateY(0); }
 }
 
-@keyframes glowPulse {
-  0%, 100% { opacity: .55; transform: scale(.95); }
-  50%      { opacity: 1;   transform: scale(1.06); }
+/* ===== Стили для праздничных сообщений ===== */
+.time-shower:empty {
+    display: none;
 }
 
-/* блик по поверхности */
-.time-shower::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  pointer-events: none;
-
-  background: linear-gradient(120deg,
-      transparent 30%,
-      rgba(255, 255, 255, .18) 50%,
-      transparent 70%);
-  mix-blend-mode: screen;
-  animation: shine 6s ease-in-out infinite;
+/* Когда появляется текст-поздравление */
+body:has(.time-shower:not(:empty)) .time-shower {
+    font-family: 'Marck Script', cursive;
+    font-size: clamp(2.5rem, 8vw, 6rem);
+    letter-spacing: 2px;
+    /* Красно-золотой градиент */
+    background: linear-gradient(135deg, #ff4d4d, #ffd700, #ff4d4d);
+    background-size: 200% 200%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 
+        0 0 20px rgba(255, 77, 77, 0.6),
+        0 0 40px rgba(255, 215, 0, 0.4);
+    animation: shine 3s ease-in-out infinite, fadeInUp 1s ease-out;
 }
 
 @keyframes shine {
-  0%   { opacity: 0; transform: translateX(-30%); }
-  45%  { opacity: .9; }
-  55%  { opacity: .9; }
-  100% { opacity: 0; transform: translateX(30%); }
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
 }
 
-/* ============================================================
-   АДАПТИВ И ДОСТУПНОСТЬ
-   ============================================================ */
-
-@media (max-width: 480px) {
-  .time-shower {
-    letter-spacing: .03em;
-    border-radius: 18px;
-    font-size: clamp(1.4rem, 8vw, 2rem);
-  }
-  header > div::after { margin-top: .85rem; }
+/* ===== Адаптивность ===== */
+@media (max-width: 600px) {
+    header {
+        padding: 70px 15px 15px;
+    }
+    .time-shower {
+        letter-spacing: 3px;
+    }
+    .corner-decoration {
+        width: 100px;
+        height: 100px;
+    }
 }
 
+/* Уважение к пользователям, не любящим анимации */
 @media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after {
-    animation-duration: .001ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: .001ms !important;
-  }
+    *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+    }
+    body::after {
+        animation: none;
+    }
 }
 
-::selection {
-  background: rgba(255, 200, 100, .4);
-  color: #fff;
+/* ===== Сцена с ёлкой, подарком и сугробами ===== */
+.scene {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 40vh;
+    min-height: 280px;
+    pointer-events: none;
+    z-index: 2;
+}
+
+/* Ёлка */
+.tree {
+    position: absolute;
+    left: 8%;
+    bottom: 60px;
+    width: clamp(120px, 18vw, 220px);
+    height: auto;
+    filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.4));
+    animation: treeSway 6s ease-in-out infinite;
+    transform-origin: bottom center;
+}
+
+@keyframes treeSway {
+    0%, 100% { transform: rotate(-1deg); }
+    50% { transform: rotate(1deg); }
+}
+
+/* Мерцающая звезда на верхушке */
+.tree-star {
+    animation: starTwinkle 2s ease-in-out infinite;
+    transform-origin: center;
+    filter: drop-shadow(0 0 8px #ffd700);
+}
+
+@keyframes starTwinkle {
+    0%, 100% {
+        opacity: 1;
+        transform: scale(1) rotate(0deg);
+    }
+    50% {
+        opacity: 0.7;
+        transform: scale(1.15) rotate(15deg);
+    }
+}
+
+/* Подарок */
+.gift {
+    position: absolute;
+    left: calc(8% + clamp(100px, 16vw, 200px));
+    bottom: 55px;
+    width: clamp(70px, 10vw, 120px);
+    height: auto;
+    filter: drop-shadow(0 8px 15px rgba(0, 0, 0, 0.4));
+    animation: giftBounce 3s ease-in-out infinite;
+}
+
+@keyframes giftBounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+}
+
+/* Сугробы */
+.snowdrifts {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 180px;
+    overflow: hidden;
+}
+
+.snowdrift {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.snowdrift.back {
+    z-index: 1;
+}
+
+.snowdrift.middle {
+    z-index: 2;
+}
+
+.snowdrift.front {
+    z-index: 3;
+}
+
+/* На мобильных сдвигаем ёлку и подарок чуть правее */
+@media (max-width: 600px) {
+    .scene {
+        height: 35vh;
+        min-height: 220px;
+    }
+    .tree {
+        left: 5%;
+        bottom: 40px;
+    }
+    .gift {
+        left: calc(5% + 100px);
+        bottom: 35px;
+    }
+}
+
+/* Отключаем анимации для тех, кто их не любит */
+@media (prefers-reduced-motion: reduce) {
+    .tree,
+    .gift,
+    .tree-star {
+        animation: none;
+    }
 }
